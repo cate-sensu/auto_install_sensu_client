@@ -1,0 +1,2 @@
+# auto_install_sensu_client
+auto_install_sensu_client scripts 
