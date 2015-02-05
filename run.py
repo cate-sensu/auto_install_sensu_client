@@ -38,7 +38,7 @@ def writeToSensuConfigFile():
     # {
     #     "rabbitmq": {
     #         "vhost": "/",
-    #         "host": "sensu-test",
+    #         "host": "sensu",
     #         "port": 5672,
     #         "user": "guest",
     #         "password": "guest"
