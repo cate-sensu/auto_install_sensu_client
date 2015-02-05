@@ -12,6 +12,7 @@ require 'rubygems' if RUBY_VERSION < '1.9.0'
 require 'sensu-plugin/check/cli'
 require 'socket'
 require 'carrot-top'
+require 'pry'
 
 class CheckRabbitMQMessages < Sensu::Plugin::Check::CLI
   option :host,
