@@ -1,0 +1,8 @@
+{
+  "slack": {
+    "webhook_url": "https://hooks.slack.com/services/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",
+    "channel": "#alerts",
+    "message_prefix": "sensu",
+    "surround": "`"
+  }
+}

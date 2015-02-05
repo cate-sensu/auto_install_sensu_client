@@ -1,0 +1,12 @@
+{
+  "mailer": {
+    "admin_gui": "http://146.148.52.244:3000/#/checks",
+    "mail_from": "HealthyIO-Sensu",
+    "mail_to": "ohad@healthy.io",
+    "smtp_address": "smtp.gmail.com",
+    "smtp_port": "587",
+    "smtp_domain": "google.com",
+    "smtp_username": "ohad@healthy.io",
+    "smtp_password":"xxxxxxx"
+  }
+}
