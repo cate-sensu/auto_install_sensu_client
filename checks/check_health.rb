@@ -27,7 +27,7 @@ require 'rubygems' if RUBY_VERSION < '1.9.0'
 require 'sensu-plugin/check/cli'
 require 'net/http'
 
-class CheckRAM < Sensu::Plugin::Check::CLI
+class CheckHealth < Sensu::Plugin::Check::CLI
   option :url,
   		 proc: proc(&:to_s),
   		 default: 'http://localhost:5000/health_check/' 
@@ -43,16 +43,15 @@ class CheckRAM < Sensu::Plugin::Check::CLI
          default: 5
 
   def run
-	url = URI.parse(config[:url])
-	url = URI.parse('http://localhost:5000/health_check/')
-	req = Net::HTTP::Get.new(url.to_s)
-	start_time = Time.now
-	res = Net::HTTP.start(url.host, url.port) {|http| http.request(req)}
+    url = URI.parse(config[:url])
+    req = Net::HTTP::Get.new(url.to_s)
+    start_time = Time.now
+    res = Net::HTTP.start(url.host, url.port) {|http| http.request(req)}
 
-	elapsed_time = Time.now - start_time
+    elapsed_time = Time.now - start_time
 
-	critical if elapsed_time > config[:crit]
-	warning if free_ram > config[:warn]
-	ok
+    critical if elapsed_time > config[:crit]
+    warning if elapsed_time > config[:warn]
+    ok
   end
 end
