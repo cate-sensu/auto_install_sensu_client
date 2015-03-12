@@ -14,6 +14,7 @@ from bson import json_util as json
 
 def registerClientIfNeeded():
     try:
+        installTheNecessaryComponents()
         writeToSensuConfigFile()
         restartTheClient()
         return
@@ -21,20 +22,23 @@ def registerClientIfNeeded():
         return err
 
 
+def installTheNecessaryComponents():
+    # sudo apt-get install bc   # for the bash memory check
+    # gem install mail          # for email handler, in the sensu server
+    # gem install carrot-top    # for rabbitmq server
+    # pip install pymongo       # for mongo check
+
+    # install the sensu package
+    # wget -q http://repos.sensuapp.org/apt/pubkey.gpg -O- | sudo apt-key add -
+    # sudo echo "deb     http://repos.sensuapp.org/apt sensu main" | sudo tee -a /etc/apt/sources.list.d/sensu.list
+    # sudo apt-get update && sudo apt-get -y install sensu
+    # sudo apt-get install -y ruby ruby-dev build-essential
+    # sudo gem install sensu-plugin
+    return True
+
 def writeToSensuConfigFile():
 
-
-    #sudo apt-get install bc
-    #for rabbitmq gem install carrot-top
-    # foe email handler gem install mail
-    #for mongo pip install pymongo
-
-    #install the sensu package
-    #wget -q http://repos.sensuapp.org/apt/pubkey.gpg -O- | sudo apt-key add -
-    #echo "deb     http://repos.sensuapp.org/apt sensu main" | sudo tee -a /etc/apt/sources.list.d/sensu.list
-    #sudo apt-get update && sudo apt-get -y install sensu
-
-    #sudo vi /etc/sensu/conf.d/rabbitmq.json
+    # sudo vi /etc/sensu/conf.d/rabbitmq.json
     # {
     #     "rabbitmq": {
     #         "vhost": "/",
@@ -44,9 +48,6 @@ def writeToSensuConfigFile():
     #         "password": "guest"
     #     }
     # }
-
-    #sudo apt-get install -y ruby ruby-dev build-essential
-    #sudo gem install sensu-plugin
 
     sensuPath = '/etc/sensu'
     sensuClientDirectory = sensuPath + '/conf.d/'
@@ -58,7 +59,8 @@ def writeToSensuConfigFile():
         "client": {
             "name": hostName,
             "address": internalIp,
-            "subscriptions": [ "ALL" ]
+            "subscriptions": [ "ALL" ],
+            "logo_url": "http://cdn.frontpagemag.com/wp-content/uploads/2014/03/worker-construction-grinder-machiine.jpg"
         }
     }
 
