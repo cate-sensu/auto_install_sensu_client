@@ -30,7 +30,7 @@ require 'net/http'
 class CheckRAM < Sensu::Plugin::Check::CLI
   option :url,
   		 proc: proc(&:to_s),
-  		 default: 'http://localhost:3000' 
+  		 default: 'http://localhost:5000/health_check/' 
 
   option :warn,
          short: '-w WARN',
@@ -44,11 +44,10 @@ class CheckRAM < Sensu::Plugin::Check::CLI
 
   def run
 	url = URI.parse(config[:url])
+	url = URI.parse('http://localhost:5000/health_check/')
 	req = Net::HTTP::Get.new(url.to_s)
 	start_time = Time.now
-	res = Net::HTTP.start(url.host, url.port) {|http|
-		http.request(req)
-	}
+	res = Net::HTTP.start(url.host, url.port) {|http| http.request(req)}
 
 	elapsed_time = Time.now - start_time
 
