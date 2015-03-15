@@ -29,18 +29,19 @@ require 'net/http'
 
 class CheckHealth < Sensu::Plugin::Check::CLI
   option :url,
+       short: '-u URL'
   		 proc: proc(&:to_s),
   		 default: 'http://localhost:5000/health_check/' 
 
   option :warn,
          short: '-w WARN',
-         proc: proc(&:to_i),
-         default: 10
+         proc: proc(&:to_f),
+         default: 0.5
 
   option :crit,
          short: '-c CRIT',
-         proc: proc(&:to_i),
-         default: 5
+         proc: proc(&:to_f),
+         default: 1
 
   def run
     url = URI.parse(config[:url])
