@@ -798,14 +798,14 @@ def check_all_databases_size(con, warning, critical, perf_data):
     for db in all_dbs_data['databases']:
         database = db['name']
         data = con[database].command('dbstats')
-        storage_size = round(data['storageSize'] / 1024 / 1024, 1)
-        message += "; Database %s size: %.0f MB" % (database, storage_size)
+        storage_size = round(data['storageSize'] / 1024 / 1024 / 1024, 1)
+        message += "; Database %s size: %.0f GB" % (database, storage_size)
         perf_data_param.append((storage_size, database + "_database_size"))
         total_storage_size += storage_size
 
     perf_data_param[0] = (total_storage_size, "total_size", warning, critical)
     message += performance_data(perf_data, perf_data_param)
-    message = "Total size: %.0f MB" % total_storage_size + message
+    message = "Total size: %.0f GB" % total_storage_size + message
     return check_levels(total_storage_size, warning, critical, message)
 
 
