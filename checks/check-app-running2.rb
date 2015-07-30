@@ -13,16 +13,16 @@ procs.each_line do |proc|
   end
 end
 if running
-  puts 'OK - DAL is running'
+  puts 'OK - APP is running'
   exit 0
 else
-  puts 'WARNING - DAL NOT running'
+  puts 'WARNING - APP NOT running'
   exit 2
 end
 
 if number_of_workers_running < number_of_workers
   increase_by = number_of_workers - number_of_workers_running
-  master_pid = `cat /apps/DAL/Server/master.pid`
+  master_pid = `cat /apps/APP_NAME/master.pid`
   puts "WARNING -NUMBER of workers (#{number_of_workers_running}) is lower than #{number_of_workers} . increase by #{increase_by}"
   (1..increase_by).each do |i|
     `kill -TTIN #{master_pid}`
