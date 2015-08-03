@@ -29,8 +29,8 @@ require 'net/http'
 
 class CheckHealth < Sensu::Plugin::Check::CLI
   option :url,
-       short: '-u URL'
-  		 proc: proc(&:to_s),
+       short: '-u URL',
+  		 proc: proc { |a| a.to_s },
   		 default: 'http://localhost:5000/health_check/' 
 
   option :warn,
@@ -47,7 +47,12 @@ class CheckHealth < Sensu::Plugin::Check::CLI
     url = URI.parse(config[:url])
     req = Net::HTTP::Get.new(url.to_s)
     start_time = Time.now
-    res = Net::HTTP.start(url.host, url.port) {|http| http.request(req)}
+
+    http = Net::HTTP.new(url.host, url.port)
+    http.use_ssl = (url.scheme == 'https')
+    response = http.request(req)
+
+    critical if 'application/json' != response.content_type
 
     elapsed_time = Time.now - start_time
 
