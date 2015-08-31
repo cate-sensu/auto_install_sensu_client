@@ -23,7 +23,7 @@ class CheckRabbitMQConsumers < Sensu::Plugin::Check::CLI
          description: 'RabbitMQ management API port',
          long: '--port PORT',
          proc: proc(&:to_i),
-         default: 15_672
+         default: 15672
 
   option :ssl,
          description: 'Enable SSL for connection to the API',
